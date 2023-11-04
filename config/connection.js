@@ -10,9 +10,35 @@
 require('dotenv').config();
 
 const Sequelize = require('sequelize');
+const mysql = require('mysql2/promise');
 
-const sequelize = new Sequelize(
+exports.connectmysql = async function database() {
+    try {
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_SYS
+        });
+        return connection;
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+    }
+}
+
+exports.sequelize = new Sequelize(
     process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+        host: 'localhost',
+        dialect: 'mysql',
+        port: 3306,
+    }
+);
+
+exports.initialsequelize = new Sequelize(
+    process.env.DB_SYS,
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
@@ -26,7 +52,7 @@ const sequelize = new Sequelize(
  * This sequalize looks like is using a ternary conditional to whether we use JawsDB or
  * local MySQL Server as our source database. Pretty slick code
  */
-const jawsequelize = process.env.JAWSDB_URL
+exports.jawsequelize = process.env.JAWSDB_URL
     ? new Sequelize(process.env.JAWSDB_URL)
     : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
         host: 'localhost',
@@ -35,5 +61,3 @@ const jawsequelize = process.env.JAWSDB_URL
             decimalNumbers: true,
         },
     });
-
-module.exports = { sequelize, jawsequelize };

@@ -7,29 +7,42 @@
  * 
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
+const sequelize = require('../config/connection').initialsequelize;
+const chalk = require('chalk');
+
 const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');
 const seedProductTags = require('./product-tag-seeds');
-
-const sequelize = require('../config/connection');
+const validate = require("../db/initdb");
 
 const seedAll = async () => {
+
+    // Validate database exists or not. This function I have created for assignmet #12 and I see
+    // fit to use it here.
+    // https://github.com/gusmiller/CMS-Database/blob/main/db/initdb.js
+    response = await validate.validateDB(process.env.DB_NAME); // Retrieve data from table
+
+    // As shown above, sync({ force: true }) and sync({ alter: true }) can be destructive operations. 
+    // Therefore, they are not recommended for production-level software.
+    // https://sequelize.org/docs/v6/core-concepts/model-basics/#synchronization-in-production
     await sequelize.sync({ force: true });
-    console.log('\n----- DATABASE SYNCED -----\n');
+    console.log(chalk.bgGreen('\n----- DATABASE SYNCED -----\n'));
+
     await seedCategories();
-    console.log('\n----- CATEGORIES SEEDED -----\n');
+    console.log(chalk.bgGreen('\n----- CATEGORIES SEEDED -----\n'));
 
     await seedProducts();
-    console.log('\n----- PRODUCTS SEEDED -----\n');
+    console.log(chalk.bgGreen('\n----- PRODUCTS SEEDED -----\n'));
 
     await seedTags();
-    console.log('\n----- TAGS SEEDED -----\n');
+    console.log(chalk.bgGreen('\n----- TAGS SEEDED -----\n'));
 
     await seedProductTags();
-    console.log('\n----- PRODUCT TAGS SEEDED -----\n');
+    console.log(chalk.bgGreen('\n----- PRODUCT TAGS SEEDED -----\n'));
 
     process.exit(0);
+
 };
 
 seedAll();

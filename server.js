@@ -8,7 +8,8 @@
  *******************************************************************/
 const express = require('express');
 const routes = require('./routes');
-const Sequelize = require('sequelize');
+const sequelize = require('./config/connection').sequelize;
+const chalk = require('chalk');
 
 // Express.js is a NodeJS web framework used on the back-end (or server-side) 
 // of websites and web applications.
@@ -34,5 +35,5 @@ app.use(routes); // Routing defined in the ./routes index.js
 
 // sync sequelize models to the database, then turn on the server
 sequelize.sync().then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
+    app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
   });
