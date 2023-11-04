@@ -1,4 +1,4 @@
-const connection = require("../config/connection").connectmysql;
+const connection = require("../config/newdb").sysdatabase;
 const Chalk = require('chalk');
 
 /**

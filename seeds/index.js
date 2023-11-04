@@ -7,7 +7,7 @@
  * 
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
-const sequelize = require('../config/connection').initialsequelize;
+const sequelize = require('../config/connection');
 const chalk = require('chalk');
 
 const seedCategories = require('./category-seeds');

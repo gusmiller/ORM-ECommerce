@@ -8,7 +8,7 @@
  *******************************************************************/
 const express = require('express');
 const routes = require('./routes');
-const sequelize = require('./config/connection').sequelize;
+const sequelize = require('./config/connection');
 const chalk = require('chalk');
 
 // Express.js is a NodeJS web framework used on the back-end (or server-side) 
@@ -17,7 +17,7 @@ const chalk = require('chalk');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Start of middleware section
+// Start of middleware section ************************
 
 // This is a built-in middleware function in Express. It parses incoming requests 
 // with JSON payloads and is based on body-parser.
@@ -29,11 +29,11 @@ app.use(express.json());
 // UTF-8 encoding of the body.
 app.use(express.urlencoded({ extended: true }));
 
-// End of middleware section
+// End of middleware section **************************
 
 app.use(routes); // Routing defined in the ./routes index.js
 
 // sync sequelize models to the database, then turn on the server
-sequelize.sync().then(() => {
-    app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
-  });
+sequelize.sync({ force: true }).then(() => {
+  app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
+});

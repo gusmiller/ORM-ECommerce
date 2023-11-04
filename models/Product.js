@@ -8,7 +8,7 @@
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection').sequelize;    
+const sequelize = require('../config/connection');    
 
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model { }
