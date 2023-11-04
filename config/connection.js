@@ -7,33 +7,18 @@
  * 
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
-require('dotenv').config();
-
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
-        host: 'localhost',
-        dialect: 'mysql',
-        port: 3306,
+      host: 'localhost',
+      dialect: 'mysql',
+      port: 3306,
     }
-);
-
-/**
- * This sequalize looks like is using a ternary conditional to whether we use JawsDB or
- * local MySQL Server as our source database. Pretty slick code
- */
-const jawsequelize = process.env.JAWSDB_URL
-    ? new Sequelize(process.env.JAWSDB_URL)
-    : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-        host: 'localhost',
-        dialect: 'mysql',
-        dialectOptions: {
-            decimalNumbers: true,
-        },
-    });
-
-module.exports = { sequelize, jawsequelize };
+  );
+  
+  module.exports = sequelize;  
