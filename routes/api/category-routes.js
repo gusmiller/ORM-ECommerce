@@ -10,28 +10,110 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
-
-router.get('/', (req, res) => {
-    // find all categories
-    // be sure to include its associated Products
+/**
+ * The root `/api/categories` endpoint. We return all Category records. Notice that we are 
+ * returning related information; using advantage of the relationships. Proper status is
+ * returned upon completion -either successfull or with error
+ */
+router.get('/', async (req, res) => {
+    try {
+        const data = await Category.findAll({
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            include: [{ model: Product }],
+        });
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-router.get('/:id', (req, res) => {
-    // find one category by its `id` value
-    // be sure to include its associated Products
+/**
+ * The GET `/api/categories/1` endpoint. We return the Category record that matches the ID passed in request parameter. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const data = await Category.findByPk(req.params.id, {
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            include: [{ model: Product }],
+        });
+
+        if (!data) {
+            res.status(404).json({ message: 'No Category was found with that id!' });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-router.post('/', (req, res) => {
-    // create a new category
+/**
+ * The post endpoint creates a new entry; there isn't much information here. It will either work or not; proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.post('/', async (req, res) => {
+    try {
+        const data = await Category.create(req.body);
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
-router.put('/:id', (req, res) => {
-    // update a category by its `id` value
+/**
+ * The PUT `/api/categories/1` endpoint. It updates a Category record that matches the ID passed. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.put('/:id', async (req, res) => {
+    try {
+
+        const data = await User.update(req.body, {
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        // The update event will return the record updated if any. Validate if object is valid. In
+        // case the object return an error we fail the process
+        if (!data[0]) {
+            res.status(404).json({ message: `No Category found with this id (${req.params.id})!` });
+            return;
+        }
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-router.delete('/:id', (req, res) => {
-    // delete a category by its `id` value
+/**
+ * The DELETE `/api/categories/1` endpoint. It deletes a Category record that matches the ID passed. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = await Category.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        // The update event will return the record updated if any. Validate if object is valid. In
+        // case the object return an error we fail the process. Notice that this validation is different
+        // from the put -just different ways same result.
+        if (!data) {
+            res.status(404).json({ message: `No Category found with this id (${req.params.id})!` });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
 module.exports = router;

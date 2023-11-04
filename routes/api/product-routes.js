@@ -10,18 +10,46 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-// The `/api/products` endpoint
-
-// get all products
-router.get('/', (req, res) => {
-    // find all products
-    // be sure to include its associated Category and Tag data
+/**
+ * The root `/api/products` endpoint. We return all Product records. Notice that we are 
+ * returning related information; using advantage of the relationships. Proper status is
+ * returned upon completion -either successfull or with error
+ */
+router.get('/', async (req, res) => {
+    try {
+        const data = await Product.findAll({
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            // In this case it will return Categories and Tags objects
+            include: [{ model: Category }, { model: Tag }],
+        });
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-// get one product
-router.get('/:id', (req, res) => {
-    // find a single product by its `id`
-    // be sure to include its associated Category and Tag data
+/**
+ * The GET `/api/products/1` endpoint. We return the Product record that matches the ID passed in request parameter. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const data = await Product.findByPk(req.params.id, {
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            // In this case it will return Categories and Tags objects
+            include: [{ model: Category }, { model: Tag }],
+        });
+
+        if (!data) {
+            res.status(404).json({ message: 'No Category was found with that id!' });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
 // create new product
@@ -50,9 +78,9 @@ router.post('/', (req, res) => {
             res.status(200).json(product);
         })
         .then((productTagIds) => res.status(200).json(productTagIds))
-        .catch((err) => {
-            console.log(err);
-            res.status(400).json(err);
+        .catch((error) => {
+            console.log(error);
+            res.status(400).json(error);
         });
 });
 
@@ -93,16 +121,33 @@ router.put('/:id', (req, res) => {
                 });
             }
 
-            return res.json(product);
+            return res.status(200).json(product); // Return json object
         })
-        .catch((err) => {
-            // console.log(err);
-            res.status(400).json(err);
+        .catch((error) => {
+            res.status(400).json(error); // Fail process
         });
 });
 
-router.delete('/:id', (req, res) => {
-    // delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = await Product.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        // The update event will return the record updated if any. Validate if object is valid. In
+        // case the object return an error we fail the process. Notice that this validation is different
+        // from the put -just different ways same result.
+        if (!data) {
+            res.status(404).json({ message: `No Product found with this id (${req.params.id})!` });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
 module.exports = router;
