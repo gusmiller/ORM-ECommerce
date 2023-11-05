@@ -12,26 +12,102 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
-    // find all tags
-    // be sure to include its associated Product data
+/**
+ * The root `/api/tags` endpoint. We return all records. Notice that we are 
+ * returning related information; using advantage of the relationships. Proper status is
+ * returned upon completion -either successfull or with error
+ */
+router.get('/', async (req, res) => {
+    try {
+        const data = await Tag.findAll({
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            include: [{ model: Product }],
+        });
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-router.get('/:id', (req, res) => {
-    // find a single tag by its `id`
-    // be sure to include its associated Product data
+/**
+ * The GET `/api/tags/1` endpoint. We return the record that matches the ID passed in request parameter. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const data = await Tag.findByPk(req.params.id, {
+            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+            include: [{ model: Product }],
+        });
+
+        if (!data) {
+            res.status(404).json({ message: 'No information was found with that id!' });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }
 });
 
-router.post('/', (req, res) => {
-    // create a new tag
-});
+/**
+ * The POST `/api/tags/1` endpoint. The post endpoint creates a new entry; there isn't much information 
+ * here. It will either work or not; proper status is returned upon completion -either successfull or with error
+ */
+router.post('/', async (req, res) => {
+    try {
+        const data = await Tag.create(req.body);
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(400).json(error);
+    }});
 
-router.put('/:id', (req, res) => {
-    // update a tag's name by its `id` value
-});
+router.put('/:id', async (req, res) => {
+    try {
 
-router.delete('/:id', (req, res) => {
-    // delete on tag by its `id` value
-});
+        const data = await Tag.update(req.body, {
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        // The update event will return the record updated if any. Validate if object is valid. In
+        // case the object return an error we fail the process
+        if (!data[0]) {
+            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
+            return;
+        }
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }});
+
+/**
+ * The DELETE `/api/tags/1` endpoint. It deletes the record that matches the ID passed. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = await Tag.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        // The update event will return the record updated if any. Validate if object is valid. In
+        // case the object return an error we fail the process. Notice that this validation is different
+        // from the put -just different ways same result.
+        if (!data) {
+            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
+            return;
+        }
+
+        res.status(200).json(data); // Successfull transaction
+    } catch (error) {
+        res.status(500).json(error); // Fail process
+    }});
 
 module.exports = router;

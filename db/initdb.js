@@ -7,8 +7,11 @@
  * 
  * Date : 11/4/2023 19:11:16 PM
  *******************************************************************/
+require('dotenv').config();
+
 const connection = require("../config/newdb");
 const Chalk = require('chalk');
+const mysql = require('mysql2/promise');
 
 /**
  * This function will validate the database exists or not. This saves 1 step to manually create the
@@ -28,3 +31,15 @@ exports.validateDB = async function (value) {
     };
     return true;
 }
+
+// mysql.createConnection({
+//     host: process.env.DB_HOST || "127.0.0.1",
+//     port: process.env.DB_PORT || "3306",
+//     user     : process.env.DB_USER || "root",
+//     password : process.env.DB_PASSWORD || "root",
+// }).then( connection => {
+//     connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`).then((res) => {
+//         console.info("Database create or successfully checked");
+//         process.exit(0);
+//     })
+// })
