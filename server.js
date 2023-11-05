@@ -34,6 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes); // Routing defined in the ./routes index.js
 
 // sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
 });
