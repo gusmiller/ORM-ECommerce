@@ -24,9 +24,11 @@
 
 ## E-Commerce Application
 
-Description entered automatically by Lorem Ipsum. Aut, nobis quod earum, dolores accusamus modi libero possimus nam et aliquam non, blanditiis saepe. quod earum, dolores accusamus modi libero possimus nam et. Aut, nobis quod earum, dolores accusamus modi libero possimus nam et aliquam non, blanditiis saepe. quod earum, dolores accusamus modi libero possimus nam et.
+The assignment description starts <i>"Internet retail, also known as **e-commerce**, plays a significant role within the electronics industry, as it empowers businesses and consumers alike to conveniently engage in online buying and selling of electronic products"</i>. I could not agree more with this open statement. It is a winning statement.
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus natus iure dolorum aperiam itaque? Ipsam ad quidem quo neque aliquam natus blanditiis totam. Rerum accusantium fugit, alias numquam tenetur nemo necessitatibus laudantium officiis. Reprehenderit dolor labore iusto ut minus fugiat tempora, expedita corrupti. Ab tenetur similique ipsa dolore odio earum aliquam animi ducimus optio quibusdam ipsam eos ipsum perferendis, perspiciatis quasi temporibus. Aliquam perspiciatis dolorum est expedita quo possimus, quas temporibus pariatur mollitia debitis. Ducimus sapiente impedit culpa eos alias voluptas minima corporis veniam commodi perspiciatis. At quaerat quas porro veritatis sapiente nihil fugit cumque voluptatum voluptatem recusandae alias nulla iusto, quam exercitationem, ipsa corrupti possimus eligendi repellendus!
+As developers and throughout our careers we will encounter many opportunities to build applications that would be implemented either in -in-house hosted servers or on the cloud. I know this because, this is what I have done for the past 27 year in my career, acting as a, #Systems Analyst #Developer #DBA and more. The most important step in the process, is to demonstrate the client, that we can handle the database. Databases can get out of control very easy, so we need to spend as much time as possible in modeling it.
+
+This assignment allows us to put in practice what we have learned. Not just by achieving what is asked in the requirements, but to go beyond; use our imagination. There is much room for improvements.
 
 Here is my product!
 

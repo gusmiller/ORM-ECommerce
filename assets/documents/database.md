@@ -1,10 +1,11 @@
 # 13 Object-Relational Mapping (ORM): E-Commerce Back End
 
-### Database Models
+### ~~Database Models~~ <span style="color:brown;"><strong>(Done!)</strong></span>
 
-Your database should contain the following four models, including the requirements listed for each model:
+<details style="margin-bottom: 25px; margin-top: 25px;">
+	<summary>Your database should contain the following four models, including the requirements listed for each model</summary>
 
-* `Category`
+* `Category` <span style="color:brown;"><strong>(Done!)</strong></span>
   * `id`
     * Integer.
     * Doesn't allow null values.  
@@ -15,7 +16,7 @@ Your database should contain the following four models, including the requiremen
     * String.  
     * Doesn't allow null values.
 
-* `Product`
+* `Product` <span style="color:brown;"><strong>(Done!)</strong></span>
   * `id`  
     * Integer.  
     * Doesn't allow null values.  
@@ -41,7 +42,7 @@ Your database should contain the following four models, including the requiremen
     * Integer.  
     * References the `Category` model's `id`.
 
-* `Tag`
+* `Tag` <span style="color:brown;"><strong>(Done!)</strong></span>
   * `id`  
     * Integer.  
     * Doesn't allow null values.  
@@ -51,7 +52,7 @@ Your database should contain the following four models, including the requiremen
   * `tag_name`  
     * String.
 
-* `ProductTag`
+* `ProductTag` <span style="color:brown;"><strong>(Done!)</strong></span>
   * `id`
     * Integer.
     * Doesn't allow null values.
@@ -65,15 +66,19 @@ Your database should contain the following four models, including the requiremen
   * `tag_id`
     * Integer.
     * References the `Tag` model's `id`.
+</details>
 
-### Associations
+### ~~Associations~~ <span style="color:brown;"><strong>(Done!)</strong></span>
 
-You'll need to execute association methods on your Sequelize models to create the following relationships between them:
+<details>
+<summary>You'll need to execute association methods on your Sequelize models to create the following relationships between them:</summary>
 
 * `Product` belongs to `Category`, and `Category` has many `Product` models, as a category can have multiple products but a product can only belong to one category.
-* `Product` belongs to many `Tag` models, and `Tag` belongs to many `Product` models. Allow products to have multiple tags and tags to have many products by using the `ProductTag` through model.
+* `Product` belongs to many `Tag` models, and `Tag` belongs to many `Product` models. Allow products to have multiple tags and tags to have many products by using the `ProductTag` through model.  <span style="color:brown;"><strong>(Done!)</strong></span>
 
 > **Hint:** Make sure you set up foreign key relationships that match the column we created in the respective models.
+
+</details>
 
 ### Fill Out the API Routes to Perform RESTful CRUD Operations
 
@@ -83,11 +88,11 @@ Note that the functionality for creating the many-to-many relationship for produ
 
 > **Hint**: Be sure to look at the mini-project code for syntax help and use your model's column definitions to figure out what `req.body` will be for POST and PUT routes!
 
-### Seed the Database
+### ~~Seed the Database~~ <span style="color:brown;"><strong>(Done!)</strong></span>
 
 After creating the models and routes, run `npm run seed` to seed data to your database so that you can test your routes.
 
-### Sync Sequelize to the Database on Server Start
+### ~~Sync Sequelize to the Database on Server Start~~ <span style="color:brown;"><strong>(Done!)</strong></span>
 
 Create the code needed in `server.js` to sync the Sequelize models to the MySQL database on server start.
 

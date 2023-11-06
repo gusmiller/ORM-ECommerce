@@ -11,7 +11,7 @@ const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 /**
- * The root `/api/products` endpoint. We return all Product records. Notice that we are 
+ * The GET `/api/products` endpoint. We return all records. Notice that we are 
  * returning related information; using advantage of the relationships. Proper status is
  * returned upon completion -either successfull or with error
  */
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * The GET `/api/products/1` endpoint. We return the Product record that matches the ID passed in request parameter. 
+ * The GET `/api/products/1` endpoint. We return the record that matches the ID passed in request parameter. 
  * Notice that we are returning related information; using advantage of the relationships. Proper 
  * status is returned upon completion -either successfull or with error
  */
@@ -52,7 +52,10 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// create new product
+/**
+ * The POST `/api/ endpoint. Creates a new product and saved into database (product table). The information is provided
+ * in the request body; notice that Product may or may not have tags.
+ */
 router.post('/', (req, res) => {
     /* req.body should look like this...
       {
@@ -84,41 +87,44 @@ router.post('/', (req, res) => {
         });
 });
 
-// update product
+/**
+ * The PUT `/api/ endpoint. This will update an existing product. There is a lot more validation in this process. 
+ * TODO: I need to spend more time here - reverse engineer what it exactly does. 
+ */
 router.put('/:id', (req, res) => {
-    // update product data
+
+    // First action: update product data
     Product.update(req.body, {
-        where: {
-            id: req.params.id,
-        },
+        where: { id: req.params.id, },
     })
         .then((product) => {
             if (req.body.tagIds && req.body.tagIds.length) {
 
-                ProductTag.findAll({
-                    where: { product_id: req.params.id }
-                }).then((productTags) => {
-                    // create filtered list of new tag_ids
-                    const productTagIds = productTags.map(({ tag_id }) => tag_id);
-                    const newProductTags = req.body.tagIds
-                        .filter((tag_id) => !productTagIds.includes(tag_id))
-                        .map((tag_id) => {
-                            return {
-                                product_id: req.params.id,
-                                tag_id,
-                            };
-                        });
+                ProductTag.findAll({ where: { product_id: req.params.id } })
+                    .then((productTags) => {
 
-                    // figure out which ones to remove
-                    const productTagsToRemove = productTags
-                        .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
-                        .map(({ id }) => id);
-                    // run both actions
-                    return Promise.all([
-                        ProductTag.destroy({ where: { id: productTagsToRemove } }),
-                        ProductTag.bulkCreate(newProductTags),
-                    ]);
-                });
+                        // create filtered list of new tag_ids
+                        const productTagIds = productTags.map(({ tag_id }) => tag_id);
+                        const newProductTags = req.body.tagIds
+                            .filter((tag_id) => !productTagIds.includes(tag_id))
+                            .map((tag_id) => {
+                                return {
+                                    product_id: req.params.id,
+                                    tag_id,
+                                };
+                            });
+
+                        // figure out which ones to remove
+                        const productTagsToRemove = productTags
+                            .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
+                            .map(({ id }) => id);
+
+                        // run both actions
+                        return Promise.all([
+                            ProductTag.destroy({ where: { id: productTagsToRemove } }),
+                            ProductTag.bulkCreate(newProductTags),
+                        ]);
+                    });
             }
 
             return res.status(200).json(product); // Return json object
@@ -128,6 +134,11 @@ router.put('/:id', (req, res) => {
         });
 });
 
+/**
+ * The DELETE `/api/product/1` endpoint. It deletes the record that matches the ID passed. 
+ * Notice that we are returning related information; using advantage of the relationships. Proper 
+ * status is returned upon completion -either successfull or with error
+ */
 router.delete('/:id', async (req, res) => {
     try {
         const data = await Product.destroy({

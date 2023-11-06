@@ -11,7 +11,7 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 /**
- * The root `/api/categories` endpoint. We return all Category records. Notice that we are 
+ * The root `/api/categories` endpoint. We return all records. Notice that we are 
  * returning related information; using advantage of the relationships. Proper status is
  * returned upon completion -either successfull or with error
  */
@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * The GET `/api/categories/1` endpoint. We return the Category record that matches the ID passed in request parameter. 
+ * The GET `/api/categories/1` endpoint. We return the record that matches the ID passed in request parameter. 
  * Notice that we are returning related information; using advantage of the relationships. Proper 
  * status is returned upon completion -either successfull or with error
  */
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
         });
 
         if (!data) {
-            res.status(404).json({ message: 'No Category was found with that id!' });
+            res.status(404).json({ message: 'No information was found with that id!' });
             return;
         }
 
@@ -51,8 +51,8 @@ router.get('/:id', async (req, res) => {
 });
 
 /**
- * The post endpoint creates a new entry; there isn't much information here. It will either work or not; proper 
- * status is returned upon completion -either successfull or with error
+ * The post endpoint creates a new entry; there isn't much information here. It will either work or not; 
+ * proper status is returned upon completion -either successfull or with error
  */
 router.post('/', async (req, res) => {
     try {
@@ -64,14 +64,14 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * The PUT `/api/categories/1` endpoint. It updates a Category record that matches the ID passed. 
+ * The PUT `/api/categories/1` endpoint. It updates the record that matches the ID passed. 
  * Notice that we are returning related information; using advantage of the relationships. Proper 
  * status is returned upon completion -either successfull or with error
  */
 router.put('/:id', async (req, res) => {
     try {
 
-        const data = await User.update(req.body, {
+        const data = await Category.update(req.body, {
             where: {
                 id: req.params.id,
             },
@@ -80,7 +80,7 @@ router.put('/:id', async (req, res) => {
         // The update event will return the record updated if any. Validate if object is valid. In
         // case the object return an error we fail the process
         if (!data[0]) {
-            res.status(404).json({ message: `No Category found with this id (${req.params.id})!` });
+            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
             return;
         }
         res.status(200).json(data); // Successfull transaction
@@ -90,7 +90,7 @@ router.put('/:id', async (req, res) => {
 });
 
 /**
- * The DELETE `/api/categories/1` endpoint. It deletes a Category record that matches the ID passed. 
+ * The DELETE `/api/categories/1` endpoint. It deletes the record that matches the ID passed. 
  * Notice that we are returning related information; using advantage of the relationships. Proper 
  * status is returned upon completion -either successfull or with error
  */
@@ -106,7 +106,7 @@ router.delete('/:id', async (req, res) => {
         // case the object return an error we fail the process. Notice that this validation is different
         // from the put -just different ways same result.
         if (!data) {
-            res.status(404).json({ message: `No Category found with this id (${req.params.id})!` });
+            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
             return;
         }
 

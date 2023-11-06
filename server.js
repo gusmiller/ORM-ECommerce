@@ -8,7 +8,7 @@
  *******************************************************************/
 const express = require('express');
 const routes = require('./routes');
-const sequelize = require('./config/connection');
+const initializedatabase = require('./db/initdb')
 const chalk = require('chalk');
 
 // Express.js is a NodeJS web framework used on the back-end (or server-side) 
@@ -33,7 +33,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes); // Routing defined in the ./routes index.js
 
-// sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
-});
+// Validate database exists or not. This function I have created for assignmet #12 and I see
+// fit to use it here.
+// https://github.com/gusmiller/CMS-Database/blob/main/db/initdb.js
+initializedatabase.validateDB(process.env.DB_NAME)
+  .then(() => {
+
+    // Connect to Sequelize - done at this lever to create database if required.
+    const sequelize = require('./config/connection');
+    sequelize.sync({ force: false }).then(() => {
+      app.listen(PORT, () => console.log(chalk.bgGreen('Now listening')));
+    });
+
+  });
