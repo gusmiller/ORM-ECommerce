@@ -7,7 +7,6 @@
  * 
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
-const sequelize = require('../config/connection');
 const chalk = require('chalk');
 
 const seedCategories = require('./category-seeds');
@@ -16,12 +15,13 @@ const seedTags = require('./tag-seeds');
 const seedProductTags = require('./product-tag-seeds');
 const messages = require("../helpers/formatter")
 
-const seedAll = async () => {
+exports.seedAll = async (sequelize) => {
 
     // As shown above, sync({ force: true }) and sync({ alter: true }) can be destructive operations. 
     // Therefore, they are not recommended for production-level software.
     // https://sequelize.org/docs/v6/core-concepts/model-basics/#synchronization-in-production
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
+
     messages.msg(chalk.bgGreen('----- DATABASE SYNCED -----'), null, null, 80);
 
     await seedCategories();
@@ -36,8 +36,8 @@ const seedAll = async () => {
     await seedProductTags();
     messages.msg(chalk.bgGreen('----- PRODUCT TAGS SEEDED -----'), null, null, 80);
 
-    process.exit(0);
+    //process.exit(0);
 
 };
 
-seedAll();
+//seedAll();

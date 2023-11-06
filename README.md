@@ -59,7 +59,7 @@ I called my application "eCommerce Express". Here is my product!
 1. Install Node 18 or later. You can use the package managerof your choice.
 2. Clone this repository : `git clone git@github.com:gusmiller/ORM-ECommerce.git`
 3. Run `npm i` to install the dependencies.
-4. Run `npm start` to start the badge server and the frontend dev server.
+4. Run `npm start` to start the API server.
 5. When you run the application for the first time, database will be creaed.
 
 **Important Note**: you must have MySQL installed and configured in your computer, you will need a root user and a regular user. We also recommend you install MySQL Workbench. MySQL is developed by Oracle you can download a free version from their [website](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/). To install MySQL follow this [installation guide](https://coding-boot-camp.github.io/full-stack/mysql/mysql-installation-guide). You will also need to install [npm dotenv](https://www.npmjs.com/package/dotenv), Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env.
@@ -117,10 +117,7 @@ The following image shows the database model for the eCommerce Database:
 	<p align="center"><img src="./assets/images/ORM001.png" height="300"></p>
 </div>
 
-```
 **NOTE**: to prevent data duplication we have introduced the UNIQUE attribute to the name in tables; Category and Products. This was NOT in the Assignment requirements.
-```
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,7 +125,13 @@ The following image shows the database model for the eCommerce Database:
 
 ## Application Usage
 
-Application usage entered automatically by Lorem Ipsum. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus natus iure dolorum aperiam itaque? Ipsam ad quidem quo neque aliquam natus blanditiis totam. Rerum accusantium fugit, alias numquam tenetur nemo necessitatibus laudantium officiis. Reprehenderit dolor labore iusto ut minus fugiat tempora, expedita corrupti. Ab tenetur similique ipsa dolore odio earum aliquam animi ducimus optio quibusdam ipsam eos ipsum perferendis, perspiciatis quasi temporibus. Aliquam perspiciatis dolorum est expedita quo possimus, quas temporibus pariatur mollitia debitis. Ducimus sapiente impedit culpa eos alias voluptas minima corporis veniam commodi perspiciatis. At quaerat quas porro veritatis sapiente nihil fugit cumque voluptatum voluptatem recusandae alias nulla iusto, quam exercitationem, ipsa corrupti possimus eligendi repellendus!
+The eCommerce Express Application is a simple yet powerfull ExpressJS application, with much space for growth. Because of that the usage is pretty simple, since it revolves in one single model -Products. First the database environment has to be configured and initialize but, thanks to Equelizer this task is made very simple. 
+
+Launching eCommerce Express for the first time:
+1. Follow the steps listed in the "<a href="#installation">Installation</a>" section in this manual.
+2. Launch the application from a terminal window - `npm start` this will  start the API server and listen for calls.
+
+Once the eCommerce Express server is listening we can use any API interface such as Postman or Thumder Client to make calls. There are 4 main type of calls we can make using the eCommerce Express - GET, POST, PUT & DELETE
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

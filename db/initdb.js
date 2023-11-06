@@ -14,6 +14,7 @@ const connection = require("../config/newdb");
 const Chalk = require('chalk');
 const mysql = require('mysql2/promise');
 const messages = require("../helpers/formatter")
+const dic = require("./queries");
 
 /**
  * This function will validate the database exists or not. This saves 1 step to manually create the
@@ -26,16 +27,24 @@ exports.validateDB = async function (value) {
 
     displayMessage("e-Commerce Express");
 
-    const [rows, fields] = await cnn.execute(`SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME="${value}"`);
+    const [rows, fields] = await cnn.execute(dic.sql.validateobject + `WHERE SCHEMA_NAME="${value}"`);
 
     if (rows.length === 0) {
         await cnn.query(`CREATE DATABASE IF NOT EXISTS ${value};`);
         messages.msg(Chalk.bgRed(`Run query: CREATE DATABASE IF NOT EXISTS ${value}`), null, null, 80);
+        return { created: true, data: false };
 
     } else {
-        messages.msg(Chalk.bgGreen(`DATABASE ${value} ALREADY EXISTS!`));
+        const [rows, fields]=await cnn.query(dic.sql.totalrecords)
+        if(rows[0].TotalPT!==0){
+            messages.msg(Chalk.bgGreen(`DATABASE ${value} ALREADY EXISTS!`));
+            return { created: true, data: true };
+        }else {
+            messages.msg(Chalk.red(`DATABASE ${value} ALREADY EXISTS!`));
+            return { created: true, data: false };
+        }        
     };
-    return true;
+
 }
 
 function displayMessage(message) {
