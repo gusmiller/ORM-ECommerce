@@ -64,24 +64,6 @@ function msg(value, add, blankline, sizestring) {
     return;
 }
 
-function money(value) {
-    return formatter.format(value);
-};
-
-function resize(value, size) {
-    if (value.length >= size) {
-        return value.slice(0, size); // No need to pad, already long enough
-    } else {
-        return value + ' '.repeat(size - value.length);
-    }
-}
-
-function nodata(value) {
-    console.log("");
-    console.log(chalk.bgRed(value));
-    console.log("");
-}
-
 function carletonlogo() {
 
     process.stdout.write("\x1Bc");
@@ -102,4 +84,4 @@ function carletonlogo() {
     console.log("");
 
 }
-module.exports = { money, resize, nodata, carletonlogo, msg, parseSqlFile };
+module.exports = { carletonlogo, msg, parseSqlFile };

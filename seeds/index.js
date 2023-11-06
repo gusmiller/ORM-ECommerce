@@ -14,15 +14,9 @@ const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');
 const seedProductTags = require('./product-tag-seeds');
-const validate = require("../db/initdb");
 const messages = require("../helpers/formatter")
 
 const seedAll = async () => {
-
-    // Validate database exists or not. This function I have created for assignmet #12 and I see
-    // fit to use it here.
-    // https://github.com/gusmiller/CMS-Database/blob/main/db/initdb.js
-    response = await validate.validateDB(process.env.DB_NAME); // Retrieve data from table
 
     // As shown above, sync({ force: true }) and sync({ alter: true }) can be destructive operations. 
     // Therefore, they are not recommended for production-level software.
