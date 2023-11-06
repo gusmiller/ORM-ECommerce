@@ -36,8 +36,4 @@ exports.seedAll = async (sequelize) => {
     await seedProductTags();
     messages.msg(chalk.bgGreen('----- PRODUCT TAGS SEEDED -----'), null, null, 80);
 
-    process.exit(0);
-
 };
-
-seedAll();
