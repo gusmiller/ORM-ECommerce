@@ -25,21 +25,10 @@ exports.validateDB = async function (value) {
     const [rows, fields] = await cnn.execute(`SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME="${value}"`);
 
     if (rows.length === 0) {
-        await cnn.query(`CREATE DATABASE ecommerce_db;`);
-        console.log(Chalk.bgGreen(`Run query: CREATE DATABASE ecommerce_db`));
-        return false;
+        await cnn.query(`CREATE DATABASE IF NOT EXISTS ${value};`);
+        console.log(Chalk.bgGreen(`Run query: CREATE DATABASE IF NOT EXISTS ${value}`));
+    } else {
+        console.log(Chalk.bgGreen(`DATABASE ${value} ALREADY EXISTS!`));
     };
     return true;
 }
-
-// mysql.createConnection({
-//     host: process.env.DB_HOST || "127.0.0.1",
-//     port: process.env.DB_PORT || "3306",
-//     user     : process.env.DB_USER || "root",
-//     password : process.env.DB_PASSWORD || "root",
-// }).then( connection => {
-//     connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`).then((res) => {
-//         console.info("Database create or successfully checked");
-//         process.exit(0);
-//     })
-// })
