@@ -10,7 +10,7 @@ const express = require('express');
 const routes = require('./routes');
 const initializedatabase = require('./db/initdb')
 const chalk = require('chalk');
-const seeding = require('./seeds/index');
+const seeding = require('./seeds/customseed');
 const messages = require("./helpers/formatter")
 
 // Express.js is a NodeJS web framework used on the back-end (or server-side) 
@@ -71,16 +71,4 @@ initializedatabase.validateDB(process.env.DB_NAME)
                
                app.listen(PORT, () => messages.msg(chalk.bgYellow('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'), null, null, 80));
           }
-
-          // Connect to Sequelize - done at this lever to create database if required.
-
-          // sequelize.sync({ force: process.env.DB_FORCE })
-          //       .then(() => {
-          //             seeding.seedAll(sequelize)
-          //                   .then(() => {
-          //                         process.stdout.write("\x1Bc");
-          //                         app.listen(PORT, () => messages.msg(chalk.bgGreen('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'), null, null, 80));
-          //                   });
-          //       });
-
      });
