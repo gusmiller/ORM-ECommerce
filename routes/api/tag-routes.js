@@ -8,9 +8,8 @@
  * Date : 11/3/2023 11:11:16 AM
  *******************************************************************/
 const router = require('express').Router();
+const { json } = require('sequelize');
 const { Tag, Product, ProductTag } = require('../../models');
-
-// The `/api/tags` endpoint
 
 /**
  * The root `/api/tags` endpoint. We return all records. Notice that we are 
@@ -58,11 +57,25 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
     try {
-        const data = await Tag.create(req.body);
+
+        let data;
+
+        if (req.body.length === 1) {
+            data = await Tag.create(req.body);
+        } else {
+            tagadded = req.body
+            for (i = 0; i <= tagadded.length - 1; i++) {
+                await Tag.create(tagadded[i]);
+            }
+            data = JSON.stringify(tagadded);
+        }
+
         res.status(200).json(data); // Successfull transaction
+
     } catch (error) {
         res.status(400).json(error);
-    }});
+    }
+});
 
 router.put('/:id', async (req, res) => {
     try {
@@ -82,7 +95,8 @@ router.put('/:id', async (req, res) => {
         res.status(200).json(data); // Successfull transaction
     } catch (error) {
         res.status(500).json(error); // Fail process
-    }});
+    }
+});
 
 /**
  * The DELETE `/api/tags/1` endpoint. It deletes the record that matches the ID passed. 
@@ -108,6 +122,7 @@ router.delete('/:id', async (req, res) => {
         res.status(200).json(data); // Successfull transaction
     } catch (error) {
         res.status(500).json(error); // Fail process
-    }});
+    }
+});
 
 module.exports = router;
