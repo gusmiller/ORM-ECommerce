@@ -20,10 +20,10 @@ WHEN I enter the command to invoke the application<br/>
 <span style="color:green;">THEN my server is started and the Sequelize models are synced to the MySQL database</span>
 
 WHEN I open API GET routes in Insomnia for categories, products, or tags<br/>
-<span style="color:yellow;">THEN the data for each of these routes is displayed in a formatted JSON</span>
+<span style="color:green;">THEN the data for each of these routes is displayed in a formatted JSON</span>
 
 WHEN I test API POST, PUT, and DELETE routes in Insomnia<br/>
-<span style="color:yellow;">THEN I am able to successfully create, update, and delete data in my database</span>
+<span style="color:green;">THEN I am able to successfully create, update, and delete data in my database</span>
 
 ## Getting Started <span style="color:brown;"><strong>(Done!)</strong></span>
 

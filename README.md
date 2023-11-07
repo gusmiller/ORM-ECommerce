@@ -27,13 +27,13 @@
 
 ## E-Commerce Application
 
-The assignment description starts <i>"Internet retail, also known as **e-commerce**, plays a significant role within the electronics industry, as it empowers businesses and consumers alike to conveniently engage in online buying and selling of electronic products"</i>. I could not agree more with this open statement. It is a winning statement.
+The assignment description starts <span style="color:lightblue"><i>"Internet retail, also known as **e-commerce**, plays a significant role within the electronics industry, as it empowers businesses and consumers alike to conveniently engage in online buying and selling of electronic products"</i></span>. I could not agree more with this openning statement, it is a winning statement.
 
-As developers and throughout our careers we will encounter many opportunities to build applications that would be implemented either in -in-house hosted servers or on the cloud. I know this because, this is what I have done for the past 27 year in my career, acting as a, #Systems Analyst #Developer #DBA and more. The most important step in the process, is to demonstrate the client, that we can handle the database. Databases can get out of control very easy, so we need to spend as much time as possible in modeling it.
+As developers and throughout our careers we will encounter many opportunities to build applications that would be implemented either in -in-house hosted servers or on the cloud. I know this because, this is what I have done for the past 27 year in my career, acting as a, #Systems Analyst #Developer #DBA and more. The most important step in the process, is to demonstrate the client, that we can handle the database. Databases, can get out of control very easy, so we need to spend as much time as possible in developing the right model.
 
-This assignment allows us to put in practice what we have learned. Not just by achieving what is asked in the requirements, but to go beyond; use our imagination. There is much room for improvements.
+This assignment allows us to put in practice what we have learned. Not just by achieving what is asked in the requirements, but to go beyond; use our imagination. There is much room for improvements on this template eCommerce Application.
 
-I called my application "eCommerce Express". Here is my product!
+As developers we should always name our applications, I have called my application <span style="color:orange">"eCommerce Express"</span>. Here is my product!
 
    <div style="margin-top: 15px;">
       <img src="./assets/images/ORM002.png">
@@ -117,7 +117,7 @@ The following image shows the database model for the eCommerce Database:
 	<p align="center"><img src="./assets/images/ORM001.png" height="300"></p>
 </div>
 
-**NOTE**: to prevent data duplication we have introduced the UNIQUE attribute to the name in tables; Category and Products. This was NOT in the Assignment requirements.
+**NOTE**: Here is an example on how we can improve the requirements by implementing features that could make the model more robust! To prevent data duplication, I have introduced the UNIQUE attribute to the name in tables; Category and Products. This was NOT in the Assignment requirements.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -125,13 +125,42 @@ The following image shows the database model for the eCommerce Database:
 
 ## Application Usage
 
-The eCommerce Express Application is a simple yet powerfull ExpressJS application, with much space for growth. Because of that the usage is pretty simple, since it revolves in one single model -Products. First the database environment has to be configured and initialize but, thanks to Equelizer this task is made very simple. 
+The eCommerce Express Application is a simple yet powerfull ExpressJS application, with much space for growth. Because of that, the usage is pretty simple, since it all revolves into one objective - the clients Products. First the database environment has to be configured and initialize but, thanks to NPM Equelizer package, this task is very simple. 
 
-Launching eCommerce Express for the first time:
+Launching the eCommerce Express for the first time:
 1. Follow the steps listed in the "<a href="#installation">Installation</a>" section in this manual.
 2. Launch the application from a terminal window - `npm start` this will  start the API server and listen for calls.
 
-Once the eCommerce Express server is listening we can use any API interface such as Postman or Thumder Client to make calls. There are 4 main type of calls we can make using the eCommerce Express - GET, POST, PUT & DELETE
+Once the eCommerce Express server running it should be listening on: localhost:3001
+
+Though the application is simple, still, it requires a bit of technical knwoledge. We must be familiar with applications such Postman, SoapUI, RapidAPI or Thunder Client, which allow us to retrieve information from our Applications Endpoints. There are 4 main type of calls -called EndPoints, that we can use to retrieve data from eCommerce Express database, these are as follow: GET, POST, PUT & DELETE.
+
+For the demo I have used Thunder Client, which is embedded into my developing environment. Next, we will review each of the End points:
+
+### GET Enpoint
+
+<details>
+<summary>The GET Endpoints are the simpler ones. Enter the localhost:3001/api/tags or localhost:3001/api/categories or localhost:3001/api/products, and a list of items will be returned. In case we like retrieve just 1 record then we add /{id} and if there is a match it will return the record.</summary>
+ 
+ <div style="margin-right:30px;margin-top: 15px;">
+	<p align="center"><img src="./assets/images/ORM004.png" height="500"></p>
+</div>
+
+</details>
+
+### POST Enpoint
+
+<details>
+<summary>The POST Endpoints are used to create a new record; Categories, Tags and Products. Tihs Endpoint requires a bit more work; we need to provide the new record on JSON format and we must provide all required information.</summary>
+ 
+ <div style="margin-right:30px;margin-top: 15px;">
+	<p align="center"><img src="./assets/images/ORM005.png" height="500"></p>
+</div>
+
+</details>
+
+### DELETE/PUT Enpoints
+These Endpoints are basic, there isn't much to show. We need to know the Key ID of the table we are searching for, but don't let that intimidate you, jump into it! try it yourself.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
