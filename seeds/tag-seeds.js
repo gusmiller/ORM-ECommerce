@@ -18,6 +18,13 @@ const tagData = [
     {tag_name: 'white',},
     {tag_name: 'gold',},
     {tag_name: 'pop culture',},
+    {tag_name: 'kitchen',},
+    {tag_name: 'spices',},
+    {tag_name: 'cooking',},
+    {tag_name: 'baking',},
+    {tag_name: 'breakfast',},
+    {tag_name: 'meals',},
+    {tag_name: 'dinner',}
 ];
 
 const seedTags = () => Tag.bulkCreate(tagData);

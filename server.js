@@ -52,7 +52,9 @@ initializedatabase.validateDB(process.env.DB_NAME)
                               .then(() => {
                                    messages.apiendpoints();
                                                                            
-                                   app.listen(PORT, () => messages.msg(dic.messages.listen, null, null, 80));
+                                   app.listen(PORT, () => messages.msg(dic.messages.listeningdata, null, null, 80));
+                                   messages.msg(chalk.white('Application PORT :'), null, false);
+                                   messages.msg(chalk.white(`     Port number : ${PORT}`), null, true);
                               });
 
                     });
@@ -60,6 +62,9 @@ initializedatabase.validateDB(process.env.DB_NAME)
           } else {
                messages.apiendpoints();
                
-               app.listen(PORT, () => messages.msg(chalk.bgYellow('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'), null, null, 80));
+               app.listen(PORT, () => messages.msg(messages.msg(dic.messages.listeningdata), null, null, 80));
+               messages.msg(chalk.white('Application PORT :'), null, false);
+               messages.msg(chalk.white(`     Port number : ${PORT}`), null, true);
+          
           }
      });

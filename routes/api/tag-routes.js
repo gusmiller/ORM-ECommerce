@@ -17,15 +17,15 @@ const { Tag, Product, ProductTag } = require('../../models');
  * returned upon completion -either successfull or with error
  */
 router.get('/', async (req, res) => {
-    try {
-        const data = await Tag.findAll({
-            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
-            include: [{ model: Product }],
-        });
-        res.status(200).json(data); // Successfull transaction
-    } catch (error) {
-        res.status(500).json(error); // Fail process
-    }
+     try {
+          const data = await Tag.findAll({
+               // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+               include: [{ model: Product }],
+          });
+          res.status(200).json(data); // Successfull transaction
+     } catch (error) {
+          res.status(500).json(error); // Fail process
+     }
 });
 
 /**
@@ -34,21 +34,21 @@ router.get('/', async (req, res) => {
  * status is returned upon completion -either successfull or with error
  */
 router.get('/:id', async (req, res) => {
-    try {
-        const data = await Tag.findByPk(req.params.id, {
-            // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
-            include: [{ model: Product }],
-        });
+     try {
+          const data = await Tag.findByPk(req.params.id, {
+               // Sequelize instruction equivalente to => SQL JOIN operation / combine data from Products tables. 
+               include: [{ model: Product }],
+          });
 
-        if (!data) {
-            res.status(404).json({ message: 'No information was found with that id!' });
-            return;
-        }
+          if (!data) {
+               res.status(404).json({ message: 'No information was found with that id!' });
+               return;
+          }
 
-        res.status(200).json(data); // Successfull transaction
-    } catch (error) {
-        res.status(500).json(error); // Fail process
-    }
+          res.status(200).json(data); // Successfull transaction
+     } catch (error) {
+          res.status(500).json(error); // Fail process
+     }
 });
 
 /**
@@ -56,51 +56,63 @@ router.get('/:id', async (req, res) => {
  * here. It will either work or not; proper status is returned upon completion -either successfull or with error
  */
 router.post('/', async (req, res) => {
-    try {
+     try {
 
-        let data;
+          if (!Array.isArray(req.body) && req.body.length === undefined) {
+               const data = await Tag.create(req.body);
+               res.status(200).json(data); // Successfull transaction
+          } else {
 
-        if (req.body.length === 1) {
-            data = await Tag.create(req.body);
-        } else {
+               const { Op } = require("sequelize");
+               const lastid = await Tag.max('id');
+               await Tag.bulkCreate; (req.body);
 
-            tagadded = req.body;
-            Tag.bulkCreate(tagadded, {
-                returning: true
-            });
-            
-            data = JSON.stringify(tagadded);
-        }
+               // Ask Gurneesh
+               Tag.findAll({
+                    where: {
+                         id: {
+                              [Op.gt]: lastid,
+                         },
+                    },
+               })
+                    .then((results) => {
+                         console.log('Records with value greater than the threshold:');
+                         console.log(results);
+                    })
+                    .catch((error) => {
+                         console.error('Error querying the database:', error);
+                    });
 
-        res.status(200).json(data); // Successfull transaction
+               res.status(200).json(data); // Successfull transaction
+          }
 
-    } catch (error) {
-        res.status(400).json(error);
-    }
+     } catch (error) {
+          res.status(400).json(error);
+     }
 });
 
 /**
  * The PUT `/api/tags/1` endpoint. It updates the record that matches the ID passed. 
  */
 router.put('/:id', async (req, res) => {
-    try {
+     try {
 
-        const data = await Tag.update(req.body, {
-            where: {
-                id: req.params.id,
-            },
-        });
+          const data = await Tag.update(req.body, {
+               where: {
+                    id: req.params.id,
+               },
+          });
 
-        // The update event will return the record updated if any. Validate if object is valid. In
-        // case the object return an error we fail the process
-        if (!data[0]) {
-            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
-            return;
-        }
-        res.status(200).json(data); // Successfull transaction
-    } catch (error) {
-        res.status(500).json(error); // Fail process
-    }
+          // The update event will return the record updated if any. Validate if object is valid. In
+          // case the object return an error we fail the process
+          if (!data[0]) {
+               res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
+               return;
+          }
+          res.status(200).json(data); // Successfull transaction
+     } catch (error) {
+          res.status(500).json(error); // Fail process
+     }
 });
 
 /**
@@ -109,25 +121,25 @@ router.put('/:id', async (req, res) => {
  * status is returned upon completion -either successfull or with error
  */
 router.delete('/:id', async (req, res) => {
-    try {
-        const data = await Tag.destroy({
-            where: {
-                id: req.params.id,
-            },
-        });
+     try {
+          const data = await Tag.destroy({
+               where: {
+                    id: req.params.id,
+               },
+          });
 
-        // The update event will return the record updated if any. Validate if object is valid. In
-        // case the object return an error we fail the process. Notice that this validation is different
-        // from the put -just different ways same result.
-        if (!data) {
-            res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
-            return;
-        }
+          // The update event will return the record updated if any. Validate if object is valid. In
+          // case the object return an error we fail the process. Notice that this validation is different
+          // from the put -just different ways same result.
+          if (!data) {
+               res.status(404).json({ message: `No information found with this id (${req.params.id})!` });
+               return;
+          }
 
-        res.status(200).json(data); // Successfull transaction
-    } catch (error) {
-        res.status(500).json(error); // Fail process
-    }
+          res.status(200).json(data); // Successfull transaction
+     } catch (error) {
+          res.status(500).json(error); // Fail process
+     }
 });
 
 module.exports = router;
