@@ -62,26 +62,26 @@ router.post('/', async (req, res) => {
                const data = await Tag.create(req.body);
                res.status(200).json(data); // Successfull transaction
           } else {
-
-               const { Op } = require("sequelize");
-               const lastid = await Tag.max('id');
-               await Tag.bulkCreate; (req.body);
+               
+               // const { Op } = require("sequelize");
+               // const lastid = await Tag.max('id');
+               const data = await Tag.bulkCreate(req.body);
 
                // Ask Gurneesh
-               Tag.findAll({
-                    where: {
-                         id: {
-                              [Op.gt]: lastid,
-                         },
-                    },
-               })
-                    .then((results) => {
-                         console.log('Records with value greater than the threshold:');
-                         console.log(results);
-                    })
-                    .catch((error) => {
-                         console.error('Error querying the database:', error);
-                    });
+               // Tag.findAll({
+               //      where: {
+               //           id: {
+               //                [Op.gt]: lastid,
+               //           },
+               //      },
+               // })
+               //      .then((results) => {
+               //           console.log('Records with value greater than the threshold:');
+               //           console.log(results);
+               //      })
+               //      .catch((error) => {
+               //           console.error('Error querying the database:', error);
+               //      });
 
                res.status(200).json(data); // Successfull transaction
           }

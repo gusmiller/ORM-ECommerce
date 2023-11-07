@@ -54,7 +54,8 @@ router.get('/:id', async (req, res) => {
 
 /**
  * The POST `/api/ endpoint. Creates a new product and saved into database (product table). The information is provided
- * in the request body; notice that Product may or may not have tags.
+ * in the request body; notice that Product may or may not have tags. The arrays of tags is parsed into an array, this 
+ * array is used by the the bulkCreate
  */
 router.post('/', (req, res) => {
     /* req.body should look like this...
@@ -67,6 +68,7 @@ router.post('/', (req, res) => {
     */
     Product.create(req.body)
         .then((product) => {
+            
             // if there's product tags, we need to create pairings to bulk create in the ProductTag model
             if (req.body.tagIds.length) {
                 const productTagIdArr = req.body.tagIds.map((tag_id) => {
