@@ -10,21 +10,21 @@
 const { Tag } = require('../models');
 
 const tagData = [
-    {tag_name: 'rock music',},
-    {tag_name: 'pop music',},
-    {tag_name: 'blue',},
-    {tag_name: 'red',},
-    {tag_name: 'green',},
-    {tag_name: 'white',},
-    {tag_name: 'gold',},
-    {tag_name: 'pop culture',},
-    {tag_name: 'kitchen',},
-    {tag_name: 'spices',},
-    {tag_name: 'cooking',},
-    {tag_name: 'baking',},
-    {tag_name: 'breakfast',},
-    {tag_name: 'meals',},
-    {tag_name: 'dinner',}
+    {tag_name: 'Rock Music',},
+    {tag_name: 'Pop Music',},
+    {tag_name: 'Blue',},
+    {tag_name: 'Red',},
+    {tag_name: 'Green',},
+    {tag_name: 'White',},
+    {tag_name: 'Gold',},
+    {tag_name: 'Pop Culture',},
+    {tag_name: 'Kitchen',},
+    {tag_name: 'Spices',},
+    {tag_name: 'Cooking',},
+    {tag_name: 'Baking',},
+    {tag_name: 'Breakfast',},
+    {tag_name: 'Meals',},
+    {tag_name: 'Dinner',}
 ];
 
 const seedTags = () => Tag.bulkCreate(tagData);
