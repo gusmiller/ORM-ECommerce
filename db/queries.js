@@ -25,5 +25,7 @@ const sql = {
 
 const messages = {
     mysqlLapps: chalk.bgRed("Carleton Universty Coding Bootcamp"),
+    listeningdata: chalk.bgGreen('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'),
+    createdatabase: `Run query: CREATE DATABASE IF NOT EXISTS `
 }
 module.exports = { sql, messages };

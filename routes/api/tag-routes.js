@@ -63,10 +63,12 @@ router.post('/', async (req, res) => {
         if (req.body.length === 1) {
             data = await Tag.create(req.body);
         } else {
-            tagadded = req.body
-            for (i = 0; i <= tagadded.length - 1; i++) {
-                await Tag.create(tagadded[i]);
-            }
+
+            tagadded = req.body;
+            Tag.bulkCreate(tagadded, {
+                returning: true
+            });
+            
             data = JSON.stringify(tagadded);
         }
 
@@ -77,6 +79,9 @@ router.post('/', async (req, res) => {
     }
 });
 
+/**
+ * The PUT `/api/tags/1` endpoint. It updates the record that matches the ID passed. 
+ */
 router.put('/:id', async (req, res) => {
     try {
 

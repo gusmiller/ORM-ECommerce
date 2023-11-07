@@ -12,6 +12,7 @@ const initializedatabase = require('./db/initdb')
 const chalk = require('chalk');
 const seeding = require('./seeds/customseed');
 const messages = require("./helpers/formatter")
+const dic = require("./db/queries");
 
 // Express.js is a NodeJS web framework used on the back-end (or server-side) 
 // of websites and web applications.
@@ -49,25 +50,15 @@ initializedatabase.validateDB(process.env.DB_NAME)
                     .then(() => {
                          seeding.seedAll(sequelize)
                               .then(() => {
-                                   messages.msg(chalk.green('Example of End points available:'), null, false);
-                                   messages.msg(chalk.white('     GET localhost:3001/api/products'), null, false);
-                                   messages.msg(chalk.white('     GET localhost:3001/api/products/2'), null, false);
-                                   messages.msg(chalk.white('     DELETE localhost:3001/api/products/3'), null, false);
-                                   messages.msg(chalk.white('     POST localhost:3001/api/products'), null, false);
-                                   messages.msg(chalk.white('     PUT localhost:3001/api/products/3'));
+                                   messages.apiendpoints();
                                                                            
-                                   app.listen(PORT, () => messages.msg(chalk.bgGreen('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'), null, null, 80));
+                                   app.listen(PORT, () => messages.msg(dic.messages.listen, null, null, 80));
                               });
 
                     });
 
           } else {
-               messages.msg(chalk.green('Example of End points available:'), null, false);
-               messages.msg(chalk.white('     GET localhost:3001/api/products'), null, false);
-               messages.msg(chalk.white('     GET localhost:3001/api/products/2'), null, false);
-               messages.msg(chalk.white('     DELETE localhost:3001/api/products/3'), null, false);
-               messages.msg(chalk.white('     POST localhost:3001/api/products'), null, false);
-               messages.msg(chalk.white('     PUT localhost:3001/api/products/3'));
+               messages.apiendpoints();
                
                app.listen(PORT, () => messages.msg(chalk.bgYellow('----- LISTENING PLEASE USE THUNDER CLIENT OR POSTMAN TO ACCESS DATA -----'), null, null, 80));
           }
