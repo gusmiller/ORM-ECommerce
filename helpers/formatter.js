@@ -16,11 +16,25 @@ const chalk = require('chalk');
 const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', });
 
 const parseSqlFile = (sqlFile) => {
-    return sqlFile
-        .toString()
-        .replace(/(\r\n|\n|\r)/gm, " ") // remove newlines
-        .replace(/\s+/g, ' ') // excess white space
-        .split(";") // split into all statements
+     return sqlFile
+          .toString()
+          .replace(/(\r\n|\n|\r)/gm, " ") // remove newlines
+          .replace(/\s+/g, ' ') // excess white space
+          .split(";") // split into all statements
+}
+
+/**
+ * This function shows at startup the enpoints available to the user.
+ */
+function apiendpoints() {
+
+     msg(chalk.green('Example of End points available:'), null, false);
+     msg(chalk.white('     GET localhost:3001/api/products'), null, false);
+     msg(chalk.white('     GET localhost:3001/api/products/2'), null, false);
+     msg(chalk.white('     DELETE localhost:3001/api/products/3'), null, false);
+     msg(chalk.white('     POST localhost:3001/api/products'), null, false);
+     msg(chalk.white('     PUT localhost:3001/api/products/3'));
+
 }
 
 /**
@@ -32,56 +46,56 @@ const parseSqlFile = (sqlFile) => {
  * @returns 
  */
 function msg(value, add, blankline, sizestring) {
-    if (value === undefined) {
-        console.log("");
-        return;
-    }
+     if (value === undefined) {
+          console.log("");
+          return;
+     }
 
-    if (sizestring === undefined || value.length > sizestring) { sizestring = 140 };
+     if (sizestring === undefined || value.length > sizestring) { sizestring = 140 };
 
-    // Validate for chalk colors
-    if (value.lastIndexOf("39m") || value.lastIndexOf("49m")) {
-        let firstthree = value.substring(0, 5); // Retrieve the first 3 characters
-        let lastfive = value.substring(value.length - 5); // Get the last portion
+     // Validate for chalk colors
+     if (value.lastIndexOf("39m") || value.lastIndexOf("49m")) {
+          let firstthree = value.substring(0, 5); // Retrieve the first 3 characters
+          let lastfive = value.substring(value.length - 5); // Get the last portion
 
-        let newvalue = value.substring(5); // Remove chalk characters
-        newvalue = newvalue.slice(0, -5);
+          let newvalue = value.substring(5); // Remove chalk characters
+          newvalue = newvalue.slice(0, -5);
 
-        // validate additional information to be added into the message. This will basically
-        // inject the tail message to inherit the color
-        if (add !== undefined && add !== null) {
-            newvalue += add;
-        }
+          // validate additional information to be added into the message. This will basically
+          // inject the tail message to inherit the color
+          if (add !== undefined && add !== null) {
+               newvalue += add;
+          }
 
-        const padding = " ".repeat(sizestring - newvalue.length); // Build the fixed length string
-        console.log(firstthree + newvalue + padding + lastfive); // Put message all back togeher 
-    } else {
-        console.log(value);
-    }
+          const padding = " ".repeat(sizestring - newvalue.length); // Build the fixed length string
+          console.log(firstthree + newvalue + padding + lastfive); // Put message all back togeher 
+     } else {
+          console.log(value);
+     }
 
-    if (blankline === undefined || blankline === null) { console.log(""); }
+     if (blankline === undefined || blankline === null) { console.log(""); }
 
-    return;
+     return;
 }
 
 function carletonlogo() {
 
-    process.stdout.write("\x1Bc");
-    console.log(chalk.white("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
-    console.log("");
-    console.log(chalk.red("                    _____           _     _____"));
-    console.log(chalk.red("                    | ___| __ _ _ __| | __|_  __|__ _ __"));
-    console.log(chalk.red("                    | |   / _  | '__| |/ _ \\| |/ _ \\ '_  \\"));
-    console.log(chalk.red("                    | |__  (_| | |  | |  __/| | (_)| | | |"))
-    console.log(chalk.red("                    |____|\\__,_|_|  |_|\\___||_|\\___/_| |_|"))
-    console.log(chalk.red("                                  _   _"))
-    console.log(chalk.red("                                 | | | |"))
-    console.log(chalk.red("                                 | | | |"))
-    console.log(chalk.red("                                 | | | |"))
-    console.log(chalk.red("                                 |_____|"))
-    console.log("");
-    console.log(chalk.white("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
-    console.log("");
+     process.stdout.write("\x1Bc");
+     console.log(chalk.white("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
+     console.log("");
+     console.log(chalk.red("                    _____           _     _____"));
+     console.log(chalk.red("                    | ___| __ _ _ __| | __|_  __|__ _ __"));
+     console.log(chalk.red("                    | |   / _  | '__| |/ _ \\| |/ _ \\ '_  \\"));
+     console.log(chalk.red("                    | |__  (_| | |  | |  __/| | (_)| | | |"))
+     console.log(chalk.red("                    |____|\\__,_|_|  |_|\\___||_|\\___/_| |_|"))
+     console.log(chalk.red("                                  _   _"))
+     console.log(chalk.red("                                 | | | |"))
+     console.log(chalk.red("                                 | | | |"))
+     console.log(chalk.red("                                 | | | |"))
+     console.log(chalk.red("                                 |_____|"))
+     console.log("");
+     console.log(chalk.white("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
+     console.log("");
 
 }
-module.exports = { carletonlogo, msg, parseSqlFile };
+module.exports = { carletonlogo, msg, parseSqlFile, apiendpoints };

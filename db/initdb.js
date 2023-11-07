@@ -23,37 +23,37 @@ const dic = require("./queries");
  * @returns 
  */
 exports.validateDB = async function (value) {
-    const cnn = await connection.connectmysql(); // Get connection to database
+     const cnn = await connection.connectmysql(); // Get connection to database
 
-    displayMessage("e-Commerce Express");
+     displayMessage("e-Commerce Express");
 
-    const [rows, fields] = await cnn.execute(dic.sql.validateobject + `WHERE SCHEMA_NAME="${value}"`);
+     const [rows, fields] = await cnn.execute(dic.sql.validateobject + `WHERE SCHEMA_NAME="${value}"`);
 
-    if (rows.length === 0) {
-        await cnn.query(`CREATE DATABASE IF NOT EXISTS ${value};`);
-        messages.msg(Chalk.bgRed(`Run query: CREATE DATABASE IF NOT EXISTS ${value}`), null, null, 80);
-        return { created: true, data: false };
+     if (rows.length === 0) {
+          await cnn.query(`CREATE DATABASE IF NOT EXISTS ${value};`);
+          messages.msg(Chalk.bgRed(dic.messages.createdatabase + `${value}`), null, null, 80);
+          return { created: true, data: false };
 
-    } else {
-        const [rows, fields]=await cnn.query(dic.sql.totalrecords)
-        if(rows[0].TotalPT!==0){
-            messages.msg(Chalk.bgGreen(`DATABASE ${value} ALREADY EXISTS!`));
-            return { created: true, data: true };
-        }else {
-            messages.msg(Chalk.red(`DATABASE ${value} ALREADY EXISTS!`));
-            return { created: true, data: false };
-        }        
-    };
+     } else {
+          const [rows, fields] = await cnn.query(dic.sql.totalrecords)
+          if (rows[0].TotalPT !== 0) {
+               messages.msg(Chalk.bgGreen(`DATABASE ${value} ALREADY EXISTS!`));
+               return { created: true, data: true };
+          } else {
+               messages.msg(Chalk.red(`DATABASE ${value} ALREADY EXISTS!`));
+               return { created: true, data: false };
+          }
+     };
 
 }
 
 function displayMessage(message) {
-    figlet(message, function (err, data) {
-        if (err) {
-            console.log("Something went wrong...");
-            console.dir(err);
-            return;
-        }
-        console.log(data);
-    });
+     figlet(message, function (err, data) {
+          if (err) {
+               console.log("Something went wrong...");
+               console.dir(err);
+               return;
+          }
+          console.log(data);
+     });
 }
