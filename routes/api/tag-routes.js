@@ -57,12 +57,14 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
      try {
 
+          let data;
+
           if (!Array.isArray(req.body) && req.body.length === undefined) {
-               const data = await Tag.create(req.body);
+               data = await Tag.create(req.body);
                res.status(200).json(data); // Successfull transaction
           } else {
-               const data = await Tag.bulkCreate(req.body);
-               res.status(200).json(data); // Successfull transaction
+               data = await Tag.bulkCreate(req.body);
+               res.status(200).json(data); // Successfull bulk transaction
           }
 
      } catch (error) {
