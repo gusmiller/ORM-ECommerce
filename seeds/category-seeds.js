@@ -19,7 +19,7 @@ const categoryData = [
     {category_name: 'Condiments',},
     {category_name: 'Fruits',},
     {category_name: 'Snacks',},
-    {category_name: 'Dairies',},
+    {category_name: 'Dairy',},
     {category_name: 'Breads',},
     {category_name: 'Households',}
 ];
