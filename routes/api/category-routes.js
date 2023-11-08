@@ -60,10 +60,8 @@ router.post('/', async (req, res) => {
 
         if (!Array.isArray(req.body) && req.body.length === undefined) {
             data = await Category.create(req.body);
-            res.status(200).json(data); // Successfull transaction
         } else {
             data = await Category.bulkCreate(req.body);
-            res.status(200).json(data); // Successfull bulk transaction
         }
 
         res.status(200).json(data); // Successfull transaction
