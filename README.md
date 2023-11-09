@@ -91,6 +91,12 @@ Dependancies included in the package.json:
 ```
 </div>
 
+### Manual Installation
+<p>
+Here is a video that explains how to implement the application manually. You will need MySQL Server and Benchmark installed before you can get it going.Good luck! <a href="https://drive.google.com/file/d/1XMAud-_Sv0H89HsGAPWg_1stgKDOZu8o/view?usp=sharing">e-Commerce Express manual Installation Video</a>
+</p>
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <div id="technology" style="margin-top: 25px;">
