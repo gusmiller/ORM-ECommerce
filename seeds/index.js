@@ -15,7 +15,9 @@ const seedTags = require('./tag-seeds');
 const seedProductTags = require('./product-tag-seeds');
 const messages = require("../helpers/formatter")
 
-exports.seedAll = async (sequelize) => {
+const sequelize = require('../config/connection');
+
+const seedAll = async () => {
 
     // As shown above, sync({ force: true }) and sync({ alter: true }) can be destructive operations. 
     // Therefore, they are not recommended for production-level software.

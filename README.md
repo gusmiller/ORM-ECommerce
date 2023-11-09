@@ -46,7 +46,12 @@ As developers we should always name our applications, I have called my applicati
 	<img src="./assets/images/ORM003.png">
 </div>
 <p align="center" style="margin-top:10px;">The process detects database is missing and it creates it!</p>
+
 </details>
+
+<p align="center" style="margin-top:30px;padding-left:30px;padding-right:30px;">
+Most of times it is easier to have a better understanding when there is a video available. <span style="color:brown"> Warning! Depending on your internet speed it may be better to download the video rather than streaming it.</span> Here is a video presentation of the application:<br/> <a href="https://drive.google.com/file/d/1kaeHTM7d0hPdCuDdVqPQNMBkecLNwTEH/view?usp=sharing">e-Commerce Express</a>
+</p>
 
 </div>
 
@@ -101,7 +106,9 @@ This section  bootstrap your project. Leave any add-ons/plugins for the acknowle
 * <a href="https://www.npmjs.com/package/express"><img src="https://img.shields.io/static/v1.svg?label=npm&message=Express&color=magenta"/></a> The Express philosophy is to provide small, robust tooling for HTTP servers, making it a great solution for single page applications, websites, hybrids, or public HTTP APIs.
 * <a href="https://www.tsql.info/"><img src="https://img.shields.io/static/v1.svg?label=MySQL&message=T-SQL&color=pink"/></a> Transac-SQL language to retrieve data from database - JOIN queries, Nested and aggregate queries 
 * <a href="https://developer.mozilla.org/en-US/docs/Web/javascript"><img src="https://img.shields.io/static/v1.svg?label=Javascrip&message=Coding&color=red"/></a> Use Javascript as the main language - used classes and module exports.
-* <a href="https://developer.mozilla.org/en-US/docs/Web/mysql2"><img src="https://img.shields.io/static/v1.svg?label=npm&message=MySQL 2&color=aero"/></a> MySQL2 project is a continuation of MySQL-Native. Protocol parser code was rewritten from scratch and api changed to match popular mysqljs/mysql. 
+* <a href="https://developer.mozilla.org/en-US/docs/Web/mysql2"><img src="https://img.shields.io/static/v1.svg?label=npm&message=MySQL 2&color=aero"/></a> MySQL2 project is a continuation of MySQL-Native. Protocol parser code was rewritten from scratch and api changed to match popular mysqljs/mysql.
+* <a href="https://www.npmjs.com/package/sequelize"><img src="https://img.shields.io/static/v1.svg?label=npm&message=Sequelizer 2&color=azure"/></a> Sequelize is an easy-to-use and promise-based Node.js ORM tool for Postgres, MySQL, MariaDB, SQLite, DB2, Microsoft SQL Server, and Snowflake. It features solid transaction support, relations, eager and lazy loading, read replication and more.. 
+* <a href="https://www.npmjs.com/package/sequelize"><img src="https://img.shields.io/static/v1.svg?label=VSCode&message=Thunder Client&color=blue"/></a> Hand-crafted lightweight and easy to use Rest Client for Testing APIs. Supports collections, environments and local storage.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

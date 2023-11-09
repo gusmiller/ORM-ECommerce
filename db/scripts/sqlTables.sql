@@ -6,5 +6,5 @@ SELECT "Tag" as Tablename, id, tag_name FROM tag
 union 
 SELECT "Products" as Tablename, id, product_name FROM product
 ) AS DATA
-WHERE Tablename="Category"
+WHERE Tablename="Category" or Tablename="Tag"
 order by Tablename, id
