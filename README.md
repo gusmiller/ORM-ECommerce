@@ -50,7 +50,7 @@ As developers we should always name our applications, I have called my applicati
 </details>
 
 <p align="center" style="margin-top:30px;padding-left:30px;padding-right:30px;">
-Most of times it is easier to have a better understanding when there is a video available. <span style="color:brown"> Warning! Depending on your internet speed it may be better to download the video rather than streaming it.</span> Here is a video presentation of the application:<br/> <a href="https://drive.google.com/file/d/1kaeHTM7d0hPdCuDdVqPQNMBkecLNwTEH/view?usp=sharing">e-Commerce Express</a>
+Most of times it is easier to have a better understanding when there is a video available. <span style="color:brown"> Warning! Depending on your internet speed it may be better to download the video rather than streaming it.</span> Here is a video presentation of the application:<br/> <a target="_blank" href="https://drive.google.com/file/d/1kaeHTM7d0hPdCuDdVqPQNMBkecLNwTEH/view?usp=sharing">e-Commerce Express</a>
 </p>
 
 </div>
